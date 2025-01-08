@@ -1,4 +1,5 @@
 Implementação de Processador Ciclo Simples em FPGA
+
 Este projeto apresenta a implementação de um processador ciclo simples baseado no modelo descrito no livro Organização e Projeto de Computadores: a Interface Hardware/Software, de David A. Patterson e John L. Hennessy. 
 O processador foi desenvolvido para FPGA e segue a arquitetura MIPS, com suporte a instruções básicas de transferência, aritmética e controle de fluxo.
 implementação foi desenvolvida em Verilog e simulada/testada em uma FPGA.
