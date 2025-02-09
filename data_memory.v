@@ -74,7 +74,6 @@ module data_Memory(address, write_Data, memRead, memWrite, clk, reset, read_Data
             D_MEM[62] = 0;
             D_MEM[63] = 0;
 
-
         end
         else if(memWrite)begin
             D_MEM[address] <= write_Data;
