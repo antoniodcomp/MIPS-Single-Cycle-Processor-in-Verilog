@@ -24,7 +24,7 @@ module top(clk, reset);
     
 
     wire [31:0] data_in_top;
-    wire [6:0] seg_top;
+    wire [6:0] display1, display2, display3, display4;
     wire [3:0] an_top;
 
 
@@ -81,6 +81,8 @@ module top(clk, reset);
 
     muxJump mjump(.A(mux_adder_out_top), .B(mergebitsJump_top), .sel(jump_top), .out(PCin_top));
 
+    clock_divider clk_div(.clk(clk), .reset(reset), .slow_clk(slow_clk));
+
     // Módulo de seleção de dados
     wire [31:0] selected_data;
     data_selector selector(
@@ -103,6 +105,5 @@ module top(clk, reset);
         .display3(display3),
         .display4(display4)
     );
-
-  
+    
 endmodule
