@@ -7,6 +7,8 @@
 `include "instruction_memory.v"
 `include "pc_counter.v"
 `include "signal_extend.v"
+`include "clock_divider.v"
+`include "displayAndSelector.v"
 
 module top(clk, reset);
     input clk, reset;
@@ -78,6 +80,29 @@ module top(clk, reset);
     concatBits u1(.in1(instruction_top[25:0]), .in2(pc_outplus_top[31:28]), .out1(mergebitsJump_top));
 
     muxJump mjump(.A(mux_adder_out_top), .B(mergebitsJump_top), .sel(jump_top), .out(PCin_top));
+
+    // Módulo de seleção de dados
+    wire [31:0] selected_data;
+    data_selector selector(
+        .PC(PC_top),
+        .reg0(Rd1_top),  // Exemplo: Registrador 0 (Rd1)
+        .reg1(Rd2_top),  // Exemplo: Registrador 1 (Rd2)
+        .reg2(writeBackData_top),  // Exemplo: Dado escrito no registrador
+        .reg3(ALU_result_top),  // Exemplo: Resultado da ALU
+        .select(3'b011),  // Seleção via chaves (SW) - ajuste conforme necessário
+        .data_out(selected_data)
+    );
+
+    // Módulo de exibição nos displays
+    Display4Digitos2 displays(
+        .clk(slow_clk),
+        .reset(reset),                // Usa o clock reduzido
+        .reg_data(selected_data),      // Dados selecionados (PC ou registrador)
+        .display1(display1),
+        .display2(display2),
+        .display3(display3),
+        .display4(display4)
+    );
 
   
 endmodule
